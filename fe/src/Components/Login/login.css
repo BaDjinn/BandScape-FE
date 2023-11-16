@@ -1,0 +1,94 @@
+.colForm {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 6rem !important;
+  padding-right: 6rem !important;
+}
+.colForm a {
+  color: black;
+}
+@media screen and (max-width: 1200px) {
+  .colForm {
+    padding-left: 5rem !important;
+    padding-right: 5rem !important;
+  }
+}
+@media screen and (max-width: 992px) {
+  .colForm {
+    padding-left: 20% !important;
+    padding-right: 20% !important;
+  }
+}
+@media screen and (max-width: 768px) {
+  .colForm {
+    padding-left: 10% !important;
+    padding-right: 10% !important;
+  }
+}
+@media screen and (max-width: 576px) {
+  .colForm {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+.registrationForm input {
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+}
+.registrationForm input:focus {
+  border-color: black !important;
+  outline: 0;
+  box-shadow: unset;
+}
+.checkBox {
+  padding: 0.5rem 0.5rem !important;
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+
+  color: black;
+  transition: all 0.5s ease;
+  border: none;
+  font-weight: 700;
+}
+.submitBtn:hover {
+  color: black;
+  background-color: rgb(21, 168, 194);
+}
+.coverImg {
+  object-position: center;
+  object-fit: cover;
+  overflow: hidden;
+  max-height: 100vh;
+  width: 100%;
+}
+.inputWrapper {
+  position: relative;
+}
+.inputIcon {
+  position: absolute;
+  right: calc(1rem * 1.25);
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #858c97;
+  font-size: 1.25rem;
+}
+.iconCheck {
+  color: green;
+  margin-left: 10px;
+  font-size: 1rem;
+}
+.iconStop {
+  color: red;
+  margin-left: 10px;
+  font-size: 1rem;
+}
+.pswEye:hover {
+  color: black;
+}
