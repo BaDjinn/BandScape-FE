@@ -1,3 +1,4 @@
+import axios from "axios";
 import "./login.css";
 import { useFormik } from "formik";
 import React, { useState } from "react";
@@ -18,7 +19,9 @@ import {
 } from "react-icons/ai";
 
 import { CiMail, CiLock } from "react-icons/ci";
+import useAuth from "../../Auth/hooks/useAuth";
 export default function Login() {
+  const { setAuth } = useAuth();
   const [showPsw, setShowPsw] = useState(false);
   const validate = (values) => {
     const errors = {};
@@ -49,7 +52,16 @@ export default function Login() {
         email: values.email,
         password: values.psw,
       };
-      console.log("login", dati);
+      try {
+        const response = await axios.post(
+          process.env.REACT_APP_URL_API + "/login",
+          dati
+        );
+        console.log(response);
+        setAuth({ user: response.data.user, token: response.data.token });
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
   return (

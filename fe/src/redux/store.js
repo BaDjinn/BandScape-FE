@@ -2,6 +2,7 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import { encryptTransform } from "redux-persist-transform-encrypt";
 import storage from "redux-persist/lib/storage";
+import PostsSlice from "./slices/PostsSlice";
 const configurePersist = {
   key: "root",
   storage,
@@ -16,7 +17,9 @@ const configurePersist = {
     }),
   ],
 };
-const allReducer = combineReducers({});
+const allReducer = combineReducers({
+  posts: PostsSlice,
+});
 const persistRed = persistReducer(configurePersist, allReducer);
 const store = configureStore({
   reducer: persistRed,

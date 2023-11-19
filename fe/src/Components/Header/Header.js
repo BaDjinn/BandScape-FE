@@ -26,18 +26,18 @@ export default function Header() {
             <Link to="/posts" className="nav-link">
               Posts
             </Link>
-            {auth?.username ? (
+            {auth?.user ? (
               <>
                 <p
                   className="helloUser"
                   style={{ color: "white", fontWeight: "600" }}
                 >
-                  Hello {auth.username}!!
+                  Hello {auth.user.nick}!!
                 </p>
                 <Link to="/profile" className="nav-link">
                   Profile
                 </Link>
-                {auth?.roles?.find((role) => role === "ROLE_ADMIN") ? (
+                {auth?.user.isAdmin ? (
                   <Link to="/backoffice" className="nav-link">
                     Admin
                   </Link>

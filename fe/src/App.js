@@ -28,14 +28,8 @@ function App() {
             <Route path="/posts" element={<PostPage />} />
 
             <Route path="/backoffice" element={<BackOffice />} />
-            <Route
-              element={<RequireAuth allowedRoles={["ROLE_ADMIN"]} />}
-            ></Route>
-            <Route
-              element={
-                <RequireAuth allowedRoles={["ROLE_ADMIN", "ROLE_USER"]} />
-              }
-            ></Route>
+            <Route element={<RequireAuth allowedRoles={["admin"]} />}></Route>
+            <Route element={<RequireAuth allowedRoles={["any"]} />}></Route>
             <Route path="/profile" element={<Profile />} />
           </Routes>
           <Footer />
