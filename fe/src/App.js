@@ -27,16 +27,16 @@ function App() {
             <Route path="/gallery" element={<AlbumPage />} />
             <Route path="/posts" element={<PostPage />} />
 
-            <Route element={<RequireAuth allowedRoles={["ROLE_ADMIN"]} />}>
-              <Route path="/backoffice" element={<BackOffice />} />
-            </Route>
+            <Route path="/backoffice" element={<BackOffice />} />
+            <Route
+              element={<RequireAuth allowedRoles={["ROLE_ADMIN"]} />}
+            ></Route>
             <Route
               element={
                 <RequireAuth allowedRoles={["ROLE_ADMIN", "ROLE_USER"]} />
               }
-            >
-              <Route path="/profile" element={<Profile />} />
-            </Route>
+            ></Route>
+            <Route path="/profile" element={<Profile />} />
           </Routes>
           <Footer />
         </AuthProvider>

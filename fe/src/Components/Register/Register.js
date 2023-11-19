@@ -77,16 +77,18 @@ export default function Register() {
       // // console.log("value", values);
       // dati per la reggistrazione
       const dati = {
-        name: values.firstName,
-
-        password: values.psw,
-        c_password: values.confirmPsw,
+        nick: values.firstName,
         email: values.email,
+        password: values.psw,
       };
 
       try {
         // prima fetch per la reggistrazione
-        const response = await axios.post("url server" + "/api/register", dati);
+        const response = await axios.post(
+          process.env.REACT_APP_URL_API + "/users/create",
+          dati
+        );
+        console.log(response);
       } catch (error) {
         setErrorMessage(error.response.data.error + "");
       } finally {
