@@ -1,22 +1,33 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import "./header.css"
+
 
 import useAuth from "../../Auth/hooks/useAuth";
 import { Link } from "react-router-dom";
-import { SiBandsintown } from "react-icons/si";
+import { Row } from "react-bootstrap";
+
+
 export default function Header() {
   const { auth, setAuth } = useAuth();
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" className="bg-primary z-10">
       <Container>
-        <Link to="/" className="navbar-brand ">
-          <SiBandsintown className="me-2" />
-          Band Scape
+        <Link to="/" className="navbar-brand p-0">
+          <Navbar.Brand href="#home">
+            <img
+              src="/images/sonic_fury.png"
+              width="80"
+              height="80"
+              className="d-inline-block align-top p-0"
+              alt="React Bootstrap logo"
+            />
+          </Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+          <Nav className="ms-auto">
             <Link to="/" className="nav-link">
               Home
             </Link>
@@ -63,9 +74,11 @@ export default function Header() {
                 </Link>
               </>
             )}
+
           </Nav>
         </Navbar.Collapse>
       </Container>
+
     </Navbar>
   );
 }

@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "aos/dist/aos.css";
 import "./App.css";
 import Header from "./Components/Header/Header";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -12,8 +13,18 @@ import PostPage from "./Components/PostPage/PostPage";
 import Profile from "./Components/Profile/Profile";
 import BackOffice from "./Components/BackOffice/BackOffice";
 import RequireAuth from "./Auth/RequiredAuth";
+import Aos from "aos";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    if (typeof window !== "undefined")
+      Aos.init({
+        offset: 120,
+        duration: 400,
+        once: true,
+      });
+  }, []);
   return (
     <>
       <BrowserRouter>
