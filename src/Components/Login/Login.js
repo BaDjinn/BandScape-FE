@@ -20,9 +20,13 @@ import {
 
 import { CiMail, CiLock } from "react-icons/ci";
 import useAuth from "../../Auth/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 export default function Login() {
   const { setAuth } = useAuth();
   const [showPsw, setShowPsw] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
   const validate = (values) => {
     const errors = {};
 
@@ -48,6 +52,7 @@ export default function Login() {
     },
     validate,
     onSubmit: async (values) => {
+      setLoading(true);
       const dati = {
         email: values.email,
         password: values.psw,
@@ -57,10 +62,13 @@ export default function Login() {
           process.env.REACT_APP_URL_API + "/login",
           dati
         );
-        console.log(response);
+        // console.log(response);
+        setLoading(false);
         setAuth({ user: response.data.user, token: response.data.token });
+        navigate("/");
       } catch (error) {
         console.log(error);
+        setErrorMessage("User not found");
       }
     },
   });
@@ -93,6 +101,8 @@ export default function Login() {
                           : formik.touched.email
                           ? "green"
                           : "#dee2e6",
+                      color: "black",
+                      fontWeight: "bold",
                     }}
                   />
                   <span className="inputIcon">
@@ -131,6 +141,8 @@ export default function Login() {
                           : formik.touched.psw
                           ? "green"
                           : "#dee2e6",
+                      color: "black",
+                      fontWeight: "bold",
                     }}
                   />
                   <span
@@ -163,6 +175,13 @@ export default function Login() {
               >
                 Login
               </Button>
+              {errorMessage !== "" ? (
+                <Alert variant="danger" className="mt-2">
+                  {errorMessage}
+                </Alert>
+              ) : (
+                <></>
+              )}
             </Form>
           </Col>
         </Row>

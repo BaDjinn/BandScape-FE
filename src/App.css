@@ -3,4 +3,30 @@ body {
   font-family: "Gruppo", sans-serif;
   font-size: 18px;
   background-color: #202020;
+  color: white;
+}
+.profile-card {
+  background-color: #585858;
+  border: 3px solid #81d412;
+
+  /* border-radius: 50% 50% 10px 10px; */
+}
+.profile-card .card-img-top {
+  margin-top: 10px;
+  border-radius: 50%;
+  max-width: 300px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  object-position: center;
+}
+.profile-card .card-body p:first-child,
+.profile-card .card-body p:nth-child(2) {
+  color: #81d412;
+  font-weight: 900;
+  font-size: 30px;
+}
+.profile-card .card-body p:nth-child(3) {
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 30px;
 }

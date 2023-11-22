@@ -18,12 +18,15 @@ import {
   AiOutlineStop,
 } from "react-icons/ai";
 import { BiHomeAlt2 } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 export default function Register() {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   //stati per nascondere/visualizzare la psw
   const [showPsw, setShowPsw] = useState(false);
   const [showComPsw, setShowComPsw] = useState(false);
+  const navigate = useNavigate();
+
   const validate = (values) => {
     const errors = {};
     //validazione Nome
@@ -88,6 +91,7 @@ export default function Register() {
           process.env.REACT_APP_URL_API + "/users/create",
           dati
         );
+        navigate("/login");
         console.log(response);
       } catch (error) {
         setErrorMessage(error.response.data.error + "");
