@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import "./style.css";
+import { useDispatch, useSelector } from "react-redux";
+import { format } from "date-fns";
+import { fetchPost } from "../../redux/slices/PostsSlice";
 export default function Home() {
+  const dispatch = useDispatch();
+  const posts = useSelector((state) => state.posts.posts);
+  useEffect(() => {
+    dispatch(fetchPost());
+  }, []);
   return (
     <main>
       <Container fluid>
@@ -38,7 +46,7 @@ export default function Home() {
             {/* <img
               src="/images/light-concert.jpg"
               alt="light concert"
-              className="w-100"
+                className="w-100"
             />{" "} */}
           </div>
         </Row>
@@ -86,84 +94,240 @@ export default function Home() {
             </div>
           </Col>{" "}
           <Col>
-            <Row
-              data-aos="fade-left"
-              data-aos-offset="200"
-              data-aos-duration="1000"
-              data-aos-once="false"
-            >
-              <li class="posts_item">
-                <div class="post">
-                  <div class="post_price">22-01-2024</div>
-                  <div class="post_image">
-                    <img
-                      src="/images/gitarra-1.jpg"
-                      alt="mixed vegetable salad in a mason jar. "
-                    />
-                  </div>
-                  <div class="post_content">
-                    <h2 class="post_title">Titolo post</h2>
-                    <div class="post_text">
-                      <p>
-                        Dig into the freshest veggies of the season! This
-                        salad-in-a-jar features a mixture of leafy greens and
-                        seasonal vegetables, fresh from the farmer's market.
-                      </p>
-                      <p>
-                        Served with your choice of dressing on the side:
-                        housemade ranch, cherry balsamic vinaigrette, creamy
-                        chipotle, avocado green goddess, or honey mustard. Add
-                        your choice of protein for $2 more.
-                      </p>
-                    </div>
-                    <div></div>{" "}
-                  </div>
-                </div>
-              </li>
-            </Row>
-            <Row
-              data-aos="fade-left"
-              data-aos-offset="200"
-              data-aos-duration="1000"
-              data-aos-once="false"
-            >
-              <li class="posts_item">
-                <div class="post">
-                  <div class="post_price">22-01-2024</div>
-                  <div class="post_image">
-                    <img
-                      src="/images/gitarra.webp"
-                      alt="mixed vegetable salad in a mason jar. "
-                    />
-                  </div>
-                  <div class="post_content">
-                    <h2 class="post_title">Titolo post</h2>
-                    <div class="post_text">
-                      <p>
-                        Dig into the freshest veggies of the season! This
-                        salad-in-a-jar features a mixture of leafy greens and
-                        seasonal vegetables, fresh from the farmer's market.
-                      </p>
-                      <p>
-                        Served with your choice of dressing on the side:
-                        housemade ranch, cherry balsamic vinaigrette, creamy
-                        chipotle, avocado green goddess, or honey mustard. Add
-                        your choice of protein for $2 more.
-                      </p>
-                    </div>
-                    <div></div>{" "}
-                  </div>
-                </div>
-              </li>
-            </Row>
+            {posts.length > 0 ? (
+              posts.map(
+                (post, i) =>
+                  i < 2 && (
+                    <Row
+                      key={post._id + "homepage"}
+                      data-aos="fade-left"
+                      data-aos-offset="200"
+                      data-aos-duration="1000"
+                      data-aos-once="false"
+                    >
+                      <li className="posts_item">
+                        <div className="post">
+                          <div className="post_price">
+                            {" "}
+                            {format(new Date(post?.createdAt), "d-MMM-y HH:mm")}
+                          </div>
+                          <div className="post_image">
+                            <img
+                              src="/images/gitarra-1.jpg"
+                              alt="mixed vegetable salad in a mason jar. "
+                            />
+                          </div>
+                          <div className="post_content">
+                            <h2 className="post_title">{post?.title}</h2>
+                            <div className="post_text">
+                              <p>{post?.content}</p>
+                              <p>Author: {post?.author?.nick}</p>
+                            </div>
+                            <div></div>{" "}
+                          </div>
+                        </div>
+                      </li>
+                    </Row>
+                  )
+              )
+            ) : (
+              <p></p>
+            )}
           </Col>
         </Row>
-        <Row>About us: </Row>
-        <Row style={{ height: "80vh", background: "yellow" }}>
-          carosello immagini
-        </Row>
-        <Row style={{ height: "80vh", background: "lightblue" }}>
-          video gallery
+
+        <Row>
+          <main>
+            <div className="album py-5">
+              <div className="container">
+                <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                  <Col
+                    data-aos="fade-right"
+                    data-aos-offset="400"
+                    data-aos-delay="450"
+                    data-aos-duration="1000"
+                    data-aos-once="false"
+                  >
+                    <div className="card shadow-sm">
+                      <div className="cardContaier">
+                        <img alt="img" src="/images/light-concert.jpg" />
+                      </div>
+                      <div className="card-body">
+                        <p className="card-text">
+                          This is a wider card with supporting text below as a
+                          natural lead-in to additional content. This content is
+                          a little bit longer.
+                        </p>
+                      </div>
+                    </div>
+                  </Col>
+                  <Col
+                    data-aos="fade-right"
+                    data-aos-offset="400"
+                    data-aos-delay="250"
+                    data-aos-duration="1000"
+                    data-aos-once="false"
+                  >
+                    <div className="card shadow-sm">
+                      <div className="cardContaier">
+                        <img alt="img" src="/images/man-2-guitar.jpg" />
+                      </div>
+                      <div className="card-body">
+                        <p className="card-text">
+                          This is a wider card with supporting text below as a
+                          natural lead-in to additional content. This content is
+                          a little bit longer.
+                        </p>
+                      </div>
+                    </div>
+                  </Col>
+                  <Col
+                    data-aos="fade-right"
+                    data-aos-offset="400"
+                    data-aos-delay="50"
+                    data-aos-duration="1000"
+                    data-aos-once="false"
+                  >
+                    <div className="card shadow-sm">
+                      <div className="cardContaier">
+                        {" "}
+                        <img alt="img" src="/images/vinyl.jpg" />
+                      </div>
+                      <div className="card-body">
+                        <p className="card-text">
+                          This is a wider card with supporting text below as a
+                          natural lead-in to additional content. This content is
+                          a little bit longer.
+                        </p>
+                      </div>
+                    </div>
+                  </Col>
+
+                  <Col
+                    data-aos="fade-left"
+                    data-aos-offset="400"
+                    data-aos-delay="50"
+                    data-aos-duration="1000"
+                    data-aos-once="false"
+                  >
+                    <div className="card shadow-sm">
+                      <div className="cardContaier">
+                        <img alt="img" src="/images/piano.jpg" />
+                      </div>
+                      <div className="card-body">
+                        <p className="card-text">
+                          This is a wider card with supporting text below as a
+                          natural lead-in to additional content. This content is
+                          a little bit longer.
+                        </p>
+                      </div>
+                    </div>
+                  </Col>
+                  <Col
+                    data-aos="fade-left"
+                    data-aos-offset="400"
+                    data-aos-delay="250"
+                    data-aos-duration="1000"
+                    data-aos-once="false"
+                  >
+                    <div className="card shadow-sm">
+                      <div className="cardContaier">
+                        <img alt="img" src="/images/man-guitar.jpg" />
+                      </div>
+                      <div className="card-body">
+                        <p className="card-text">
+                          This is a wider card with supporting text below as a
+                          natural lead-in to additional content. This content is
+                          a little bit longer.
+                        </p>
+                      </div>
+                    </div>
+                  </Col>
+                  <Col
+                    data-aos="fade-left"
+                    data-aos-offset="400"
+                    data-aos-delay="450"
+                    data-aos-duration="1000"
+                    data-aos-once="false"
+                  >
+                    <div className="card shadow-sm">
+                      <div className="cardContaier">
+                        <img alt="img" src="/images/violins.jpg" />
+                      </div>
+                      <div className="card-body">
+                        <p className="card-text">
+                          This is a wider card with supporting text below as a
+                          natural lead-in to additional content. This content is
+                          a little bit longer.
+                        </p>
+                      </div>
+                    </div>
+                  </Col>
+
+                  <Col
+                    data-aos="fade-right"
+                    data-aos-offset="400"
+                    data-aos-delay="450"
+                    data-aos-duration="1000"
+                    data-aos-once="false"
+                  >
+                    <div className="card shadow-sm">
+                      <div className="cardContaier">
+                        <img alt="img" src="/images/microphone.jpg" />
+                      </div>
+                      <div className="card-body">
+                        <p className="card-text">
+                          This is a wider card with supporting text below as a
+                          natural lead-in to additional content. This content is
+                          a little bit longer.
+                        </p>
+                      </div>
+                    </div>
+                  </Col>
+                  <Col
+                    data-aos="fade-right"
+                    data-aos-offset="400"
+                    data-aos-delay="250"
+                    data-aos-duration="1000"
+                    data-aos-once="false"
+                  >
+                    <div className="card shadow-sm">
+                      <div className="cardContaier">
+                        <img alt="img" src="/images/music.jpg" />
+                      </div>
+                      <div className="card-body">
+                        <p className="card-text">
+                          This is a wider card with supporting text below as a
+                          natural lead-in to additional content. This content is
+                          a little bit longer.
+                        </p>
+                      </div>
+                    </div>
+                  </Col>
+                  <Col
+                    data-aos="fade-right"
+                    data-aos-offset="400"
+                    data-aos-delay="50"
+                    data-aos-duration="1000"
+                    data-aos-once="false"
+                  >
+                    <div className="card shadow-sm">
+                      <div className="cardContaier">
+                        <img alt="img" src="/images/gitarra-1.jpg" />
+                      </div>
+                      <div className="card-body">
+                        <p className="card-text">
+                          This is a wider card with supporting text below as a
+                          natural lead-in to additional content. This content is
+                          a little bit longer.
+                        </p>
+                      </div>
+                    </div>
+                  </Col>
+                </div>
+              </div>
+            </div>
+          </main>
         </Row>
       </Container>
     </main>

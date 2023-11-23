@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import PostComments from "./PostComments";
-import useAuth from "../../../Auth/hooks/useAuth";
-import DeletePostModal from "./DeletePostModal";
-import axios from "axios";
-import UpdatePostModal from "./UpdatePostModal";
-import { format } from "date-fns";
 
-export default function Post({ post }) {
+import axios from "axios";
+import { format } from "date-fns";
+import PostComments from "../../PostPage/Components/PostComments";
+import DeletePostModal from "../../PostPage/Components/DeletePostModal";
+import UpdatePostModal from "../../PostPage/Components/UpdatePostModal";
+
+export default function AdminPosts({ post }) {
   const { auth } = useAuth();
   const [showCommenti, setShowCommenti] = useState(false);
   const [addComment, setAddComment] = useState("");
@@ -137,6 +137,7 @@ export default function Post({ post }) {
               </Row>
             )}
           </div>
+          <h2>Ciao mondo</h2>
         </div>
       </div>
       <DeletePostModal show={show} handleClose={handleClose} post={post} />

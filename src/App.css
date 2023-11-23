@@ -4,6 +4,7 @@ body {
   font-size: 18px;
   background-color: #202020;
   color: white;
+  overflow-x: hidden;
 }
 .profile-card {
   background-color: #585858;
@@ -29,4 +30,33 @@ body {
   color: #ffffff;
   font-weight: 500;
   font-size: 30px;
+}
+
+.card {
+  background-color: #585858;
+  height: 100%;
+}
+.cardContaier {
+  overflow: hidden;
+}
+.card img {
+  height: 250px;
+  object-fit: cover;
+  object-position: center;
+  animation: scaleAnimation 15s infinite ease-in-out;
+}
+.card-text {
+  color: #81d412;
+  font-weight: 800;
+}
+@keyframes scaleAnimation {
+  0% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
 }

@@ -43,7 +43,7 @@ export default function BackOffice() {
             </Button>
           </Col>
         </Row>
-        <ul class="posts">
+        <ul className="posts">
           <Row className="w-100">
             {posts.length > 0 ? (
               posts.map((post) => (

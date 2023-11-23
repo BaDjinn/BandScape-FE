@@ -20,11 +20,11 @@ export default function PostPage() {
       >
         Latest News!!
       </h2>
-      <ul class="posts">
+      <ul className="posts">
         <Row className="w-100">
           {posts.length > 0 ? (
             posts.map((post) => (
-              <Col key={post.id} xs={12}>
+              <Col key={post.id + "postPAge"} xs={12}>
                 <Post post={post} />
               </Col>
             ))

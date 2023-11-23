@@ -16,7 +16,11 @@ export default function Profile() {
           <Card className="text-center profile-card">
             <div>
               {" "}
-              <Card.Img variant="top" src={auth?.user?.usrImg} />
+              <Card.Img
+                variant="top"
+                src={auth?.user?.usrImg}
+                style={{ animation: "none" }}
+              />
             </div>
             <Card.Body>
               <p>{auth?.user?.nick}</p>

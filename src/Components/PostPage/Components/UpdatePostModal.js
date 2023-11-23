@@ -11,6 +11,7 @@ import {
   Form,
   Row,
   Spinner,
+  ModalBody,
 } from "react-bootstrap";
 import { AiOutlineCheckCircle, AiOutlineStop } from "react-icons/ai";
 import { BiHomeAlt2 } from "react-icons/bi";
@@ -75,6 +76,46 @@ export default function UpdatePostModal({ show, handleClose, post }) {
       }
     },
   });
+  const [formData, setFormData] = useState({ file: null });
+
+  const handleChange = (event) => {
+    if (event.target.files) {
+      setFormData({ file: event.target.files[0] });
+    }
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formDataToSend = new FormData();
+    formDataToSend.append("cover", formData.file);
+    try {
+      const response = await axios.post(
+        process.env.REACT_APP_URL_API + "/posts/cloudUpload",
+        formDataToSend
+      );
+      console.log(response);
+      if (response) {
+        const dati = {
+          cover: response.data.cover,
+        };
+        console.log({ dati });
+        try {
+          dispatch(upDatePost({ data: dati, id: post._id })).then((req) => {
+            setLoading(false);
+            dispatch(fetchPost());
+            handleClose();
+          });
+        } catch (error) {
+          setLoading(false);
+          setErrorMessage("Errore nel caricamento del post");
+        }
+      } else {
+        console.log("errore");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton style={{ background: "#202020" }}>
@@ -243,6 +284,16 @@ export default function UpdatePostModal({ show, handleClose, post }) {
           )}
         </Modal.Footer>
       </Form>
+
+      <Modal.Header style={{ background: "#202020" }}>
+        <Modal.Title>Or Upload a New Image</Modal.Title>
+      </Modal.Header>
+      <Modal.Body style={{ background: "#202020" }}>
+        <form onSubmit={handleSubmit}>
+          <input type="file" onChange={handleChange} />
+          <button type="submit">Upload</button>
+        </form>
+      </Modal.Body>
     </Modal>
   );
 }
