@@ -79,3 +79,11 @@
   font-weight: 400;
   text-shadow: black 3px 0px 6px;
 }
+.nextBtn {
+  background: transparent;
+  width: 100px;
+}
+.prevBtn {
+  background: transparent;
+  width: 100px;
+}

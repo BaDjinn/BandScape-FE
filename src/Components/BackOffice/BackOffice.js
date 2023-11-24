@@ -11,7 +11,12 @@ import {
   Row,
   Spinner,
 } from "react-bootstrap";
-import { AiOutlineCheckCircle, AiOutlineStop } from "react-icons/ai";
+import {
+  AiOutlineCheckCircle,
+  AiOutlineDoubleLeft,
+  AiOutlineDoubleRight,
+  AiOutlineStop,
+} from "react-icons/ai";
 import { BiHomeAlt2 } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost, fetchPost } from "../../redux/slices/PostsSlice";
@@ -27,9 +32,30 @@ export default function BackOffice() {
   const { auth } = useAuth();
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
+  const totalPages = useSelector((state) => state.posts.totalPages);
+  const [page, setPage] = useState(1);
+  const [prevStatus, setPrevStaus] = useState(true);
+  const [nextStatus, setNextStatus] = useState(false);
   useEffect(() => {
-    dispatch(fetchPost());
-  }, []);
+    dispatch(fetchPost({ page: page }));
+  }, [page]);
+  const handlePrevClick = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
+  };
+
+  const handleNextClick = () => {
+    if (page < totalPages) {
+      setPage(page + 1);
+    }
+  };
+
+  useEffect(() => {
+    setPrevStaus(page === 1);
+    setNextStatus(page === totalPages);
+  }, [page, totalPages]);
+
   return (
     <>
       <Container>
@@ -55,6 +81,25 @@ export default function BackOffice() {
               <p></p>
             )}
           </Row>
+          <div className="d-flex justify-content-center alingn-items-center">
+            <button
+              className="prevBtn p-2"
+              disabled={prevStatus}
+              onClick={handlePrevClick}
+            >
+              <AiOutlineDoubleLeft />
+            </button>
+            <p className="m-0 p-2">
+              {page} | {totalPages}
+            </p>
+            <button
+              className="nextBtn p-2"
+              disabled={nextStatus}
+              onClick={handleNextClick}
+            >
+              <AiOutlineDoubleRight />
+            </button>
+          </div>
         </ul>
         <ModalAdd show={show} handleClose={handleClose} />
       </Container>

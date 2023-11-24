@@ -8,7 +8,7 @@ export default function Home() {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
   useEffect(() => {
-    dispatch(fetchPost());
+    dispatch(fetchPost({ page: 1 }));
   }, []);
   return (
     <main>

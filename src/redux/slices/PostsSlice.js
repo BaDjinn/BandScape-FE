@@ -5,17 +5,26 @@ const initialState = {
   posts: [],
   status: "idle",
   error: null,
+  currentPage: 1,
+
+  totalPages: 2,
+  totalPosts: 4,
 };
 
-export const fetchPost = createAsyncThunk("fetch Posts", async (thunkAPI) => {
-  try {
-    const response = await axios.get(process.env.REACT_APP_URL_API + "/posts");
-    console.log(response);
-    return response.data.posts;
-  } catch (err) {
-    return thunkAPI.rejectWithValue({ errore: err.response.data });
+export const fetchPost = createAsyncThunk(
+  "fetch Posts",
+  async ({ page, size }, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        process.env.REACT_APP_URL_API + "/posts?page=" + page
+      );
+      console.log(response);
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue({ errore: err.response.data });
+    }
   }
-});
+);
 export const createPost = createAsyncThunk(
   "create Posts",
   async ({ data }, thunkAPI) => {
@@ -65,7 +74,7 @@ export const upDatePost = createAsyncThunk(
 const PostsSlice = createSlice({
   name: "blogs slice",
   initialState,
-  reducers: {},
+  reducers: { userLis(state, action) {} },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPost.pending, (state) => {
@@ -73,7 +82,8 @@ const PostsSlice = createSlice({
       })
       .addCase(fetchPost.fulfilled, (state, action) => {
         state.status = "idle";
-        state.posts = action.payload;
+        state.posts = action.payload.posts;
+        state.totalPages = action.payload.totalPages;
       })
       .addCase(fetchPost.rejected, (state, action) => {
         state.status = "failed";
