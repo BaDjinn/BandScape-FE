@@ -11,23 +11,18 @@ import {
   Form,
   Row,
   Spinner,
-  FormLabel,
 } from "react-bootstrap";
 import { AiOutlineCheckCircle, AiOutlineStop } from "react-icons/ai";
 import { BiHomeAlt2 } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import useAuth from "../../../Auth/hooks/useAuth";
-import {
-  DeletePost,
-  createPost,
-  fetchPost,
-} from "../../../redux/slices/PostsSlice";
+import { createPost, fetchPost } from "../../../redux/slices/PostsSlice";
 
-export default function DeletePostModal({ show, handleClose, post }) {
-  const { auth } = useAuth();
+export default function DeleteAccount({ show, handleClose }) {
+  const { auth, setAuth } = useAuth();
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const dispatch = useDispatch();
+
   const validate = (values) => {
     const errors = {};
 
@@ -40,16 +35,28 @@ export default function DeletePostModal({ show, handleClose, post }) {
     onSubmit: async (values) => {
       setLoading(true);
       setErrorMessage("");
+      const { user } = auth;
+      const dati = {
+        ...user,
+        nick: values.nick,
+        usrImg: values.usrImg,
+        usrBio: values.usrBio,
+      };
 
       try {
-        dispatch(DeletePost({ id: post._id })).then((req) => {
-          setLoading(false);
-          dispatch(fetchPost({ page: 1 }));
-          handleClose();
-        });
+        const req = await axios.delete(
+          process.env.REACT_APP_URL_API + "/users/delete/" + auth.user._id,
+          dati
+        );
+
+        if (req.data.message === "I dati sono stati aggiornati") {
+          setAuth({});
+        }
+        handleClose();
+        setLoading(false);
       } catch (error) {
         setLoading(false);
-        setErrorMessage("Errore nel caricamento del post");
+        setErrorMessage("Errore in profile update");
       }
     },
   });
@@ -57,7 +64,7 @@ export default function DeletePostModal({ show, handleClose, post }) {
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton style={{ background: "#202020" }}>
         <Modal.Title>
-          <p>Are you sure?</p> <p>Post Title: {post?.title}</p>
+          <p>Are you sure? </p>
         </Modal.Title>
       </Modal.Header>
       <Form onSubmit={formik.handleSubmit} className="">
@@ -69,7 +76,7 @@ export default function DeletePostModal({ show, handleClose, post }) {
                 type="checkbox"
                 id="delmodal"
                 required
-                label={`Are you sure you want to delete this post?`}
+                label={`Yes, I want to delete my account`}
                 className=""
               />
             </Col>

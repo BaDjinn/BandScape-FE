@@ -64,7 +64,12 @@ export default function BackOffice() {
             Welcome back {auth.user?.nick}!
           </Col>
           <Col className="text-center">
-            <Button variant="primary" onClick={handleShow}>
+            <Button
+              variant="primary"
+              className="btn btn-success fw-bold border-0 text-dark rounded-0"
+              style={{ backgroundColor: "#81d412" }}
+              onClick={handleShow}
+            >
               Add a new post
             </Button>
           </Col>
@@ -83,7 +88,8 @@ export default function BackOffice() {
           </Row>
           <div className="d-flex justify-content-center alingn-items-center">
             <button
-              className="prevBtn p-2"
+              className="btn btn-success fw-bold border-0 text-dark rounded-0"
+              style={{ backgroundColor: "#81d412" }}
               disabled={prevStatus}
               onClick={handlePrevClick}
             >
@@ -93,7 +99,8 @@ export default function BackOffice() {
               {page} | {totalPages}
             </p>
             <button
-              className="nextBtn p-2"
+              className="btn btn-success fw-bold border-0 text-dark rounded-0"
+              style={{ backgroundColor: "#81d412" }}
               disabled={nextStatus}
               onClick={handleNextClick}
             >

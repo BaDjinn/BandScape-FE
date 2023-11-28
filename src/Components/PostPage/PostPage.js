@@ -41,22 +41,19 @@ export default function PostPage() {
       >
         Latest News!!
       </h2>
-      <ul className="posts">
-        <Row className="w-100">
-          {posts.length > 0 ? (
-            posts.map((post) => (
-              <Col key={post.id + "postPAge"} xs={12}>
-                <Post post={post} />
-              </Col>
-            ))
-          ) : (
-            <p></p>
-          )}
-        </Row>
-      </ul>
+
+      <Row className="w-100">
+        {posts.length > 0 ? (
+          posts.map((post) => <Post post={post} key={post._id + "postPAge"} />)
+        ) : (
+          <p></p>
+        )}
+      </Row>
+
       <div className="d-flex justify-content-center alingn-items-center">
         <button
-          className="prevBtn p-2"
+          className="btn btn-success fw-bold border-0 text-dark rounded-0 "
+          style={{ backgroundColor: "#81d412" }}
           disabled={prevStatus}
           onClick={handlePrevClick}
         >
@@ -66,7 +63,8 @@ export default function PostPage() {
           {page} | {totalPages}
         </p>
         <button
-          className="nextBtn p-2"
+          className="btn btn-success fw-bold border-0 text-dark rounded-0"
+          style={{ backgroundColor: "#81d412" }}
           disabled={nextStatus}
           onClick={handleNextClick}
         >

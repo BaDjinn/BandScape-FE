@@ -66,7 +66,7 @@ export default function ModalAdd({ show, handleClose }) {
       try {
         dispatch(createPost({ data: dati })).then((req) => {
           setLoading(false);
-          dispatch(fetchPost());
+          dispatch(fetchPost({ page: 1 }));
           handleClose();
         });
       } catch (error) {

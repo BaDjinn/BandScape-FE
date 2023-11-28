@@ -34,17 +34,17 @@ export default function Header() {
     <Navbar
       ref={navbarRef}
       expand="lg"
-      className="bg-primary z-10"
+      className="bg-trasparent z-10"
       expanded={toggle}
       collapseOnSelect
     >
       <Container>
-        <Link to="/" className="navbar-brand p-0">
+        <Link to="/" className="navbar-brand p-0 m-0">
           <img
             src="/images/sonic_fury.png"
-            width="80"
-            height="80"
-            className="d-inline-block align-top p-0"
+            width="150"
+            height="20"
+            className="d-inline-block align-top p-0 align-items-center"
             alt="React Bootstrap logo"
           />
         </Link>
@@ -65,8 +65,8 @@ export default function Header() {
             {auth?.user ? (
               <>
                 <p
-                  className="helloUser nav-link"
-                  style={{ color: "white", fontWeight: "600" }}
+                  className="helloUser nav-link m-0"
+                  style={{ color: "white" }}
                 >
                   Hello {auth.user.nick}!!
                 </p>
@@ -89,7 +89,7 @@ export default function Header() {
                   <></>
                 )}
                 <p
-                  className="nav-link logout"
+                  className="nav-link logout m-0"
                   onClick={() => {
                     setAuth({});
                     setToggle(false);

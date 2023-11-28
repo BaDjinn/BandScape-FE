@@ -1,19 +1,21 @@
 .navbar {
-    background-color: #212529 !important;
+  background-color: rgba(0, 0, 0, 0) !important;
 }
-
+.navbar-nav {
+  --bs-nav-link-hover-color: #ffffff;
+}
 .navbar-toggler {
-    background-color: #A8E00F;
-    color: #00000000;
+  background-color: #a8e00f;
+  /* color: #00000000; */
 }
 
 .nav-link {
-    color: #A8E00F;
-    font-weight: bold;
-
+  color: #a8e00f;
+}
+.nav-link:active {
+  color: #a8e00f;
 }
 
 .nav-link:hover {
-    color: #ffffff;
-
+  color: #ffffff;
 }

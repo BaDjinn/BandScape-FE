@@ -171,7 +171,11 @@ export default function Login() {
               <Button
                 type="submit"
                 className="submitBtn btn-primary"
-                style={{ fontSize: "18px", padding: "13px 28px" }}
+                style={{
+                  fontSize: "18px",
+                  padding: "13px 28px",
+                  backgroundColor: "#81d412",
+                }}
               >
                 Login
               </Button>

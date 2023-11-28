@@ -287,6 +287,7 @@ export default function Register() {
               <Button
                 type="submit"
                 className={`submitBtn btn`}
+                style={{ backgroundColor: "#81d412" }}
                 disabled={loading}
               >
                 Sing up

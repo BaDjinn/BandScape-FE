@@ -23,7 +23,12 @@ import {
   fetchPost,
 } from "../../../redux/slices/PostsSlice";
 
-export default function DeletePostModal({ show, handleClose, post }) {
+export default function DeleteComment({
+  show,
+  handleClose,
+  comment,
+  getComments,
+}) {
   const { auth } = useAuth();
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -42,14 +47,17 @@ export default function DeletePostModal({ show, handleClose, post }) {
       setErrorMessage("");
 
       try {
-        dispatch(DeletePost({ id: post._id })).then((req) => {
-          setLoading(false);
-          dispatch(fetchPost({ page: 1 }));
-          handleClose();
-        });
+        const req = await axios.delete(
+          process.env.REACT_APP_URL_API + "/comment/" + comment._id
+        );
+        console.log(req);
+
+        setLoading(false);
+        getComments();
+        handleClose();
       } catch (error) {
         setLoading(false);
-        setErrorMessage("Errore nel caricamento del post");
+        setErrorMessage("Error deleting comment");
       }
     },
   });
@@ -57,7 +65,7 @@ export default function DeletePostModal({ show, handleClose, post }) {
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton style={{ background: "#202020" }}>
         <Modal.Title>
-          <p>Are you sure?</p> <p>Post Title: {post?.title}</p>
+          <p>Are you sure?</p>
         </Modal.Title>
       </Modal.Header>
       <Form onSubmit={formik.handleSubmit} className="">
@@ -69,7 +77,7 @@ export default function DeletePostModal({ show, handleClose, post }) {
                 type="checkbox"
                 id="delmodal"
                 required
-                label={`Are you sure you want to delete this post?`}
+                label={`Are you sure you want to delete this comment?`}
                 className=""
               />
             </Col>
